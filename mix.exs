@@ -1,16 +1,17 @@
 defmodule UUID.Mixfile do
   use Mix.Project
 
-  @version "1.2.1"
+  @app :uuid_utils
+  @version "1.3.0"
 
   def project do
     [
-      app: :elixir_uuid,
+      app: @app,
       name: "UUID",
       version: @version,
       elixir: "~> 1.7",
       docs: docs(),
-      source_url: "https://github.com/sevenshores/elixir-uuid",
+      source_url: "https://github.com/sevenshores/elixir-uuid-utils",
       description: description(),
       package: package(),
       deps: deps()
@@ -46,7 +47,7 @@ defmodule UUID.Mixfile do
       files: ["lib", "mix.exs", "README.md", "LICENSE"],
       maintainers: ["Ryan Winchester"],
       licenses: ["Apache 2.0"],
-      links: %{"GitHub" => "https://github.com/sevenshores/elixir-uuid"}
+      links: %{"GitHub" => "https://github.com/sevenshores/elixir-uuid-utils"}
     ]
   end
 

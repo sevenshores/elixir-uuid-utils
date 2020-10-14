@@ -7,6 +7,12 @@ None.
 
 ---
 
+### v1.3.0, 13 Oct 2020, Elixir `~> 1.7`
+
+* [Enhancement] Add UUID v6
+* [Enhancement] Add UUID v1<->v6 conversion
+* [Enhancement] Package name
+
 ### v1.2.1, 24 Oct 2019, Elixir `~> 1.0`
 
 * [Enhancement] Improve `string_to_binary` and `binary_to_string` performance.

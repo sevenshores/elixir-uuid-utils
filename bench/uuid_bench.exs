@@ -17,7 +17,7 @@ defmodule UUIDBench do
   end
 
   bench "uuid1" do
-    UUID.uuid1
+    UUID.uuid1()
     :ok
   end
 
@@ -26,7 +26,7 @@ defmodule UUIDBench do
   end
 
   bench "uuid4" do
-    UUID.uuid4
+    UUID.uuid4()
     :ok
   end
 
