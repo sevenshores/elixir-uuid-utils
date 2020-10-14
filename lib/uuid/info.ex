@@ -7,10 +7,12 @@ defmodule UUID.Info do
 
   defstruct [:uuid, :binary, :type, :version, :variant]
 
-  @type type :: :default | :hex | :urn | :raw | :slug
-  @type version :: 1 | 3 | 4 | 5 | 6
-  @type variant :: :rfc4122 | :reserved_ncs | :reserved_microsoft | :reserved_future
-  @type t :: %Info{uuid: binary, type: type, version: version, variant: variant}
+  @type t :: %Info{
+          uuid: UUID.t(),
+          type: UUID.type(),
+          version: UUID.version(),
+          variant: UUID.variant()
+        }
 
   @doc """
   Inspect a UUID and return tuple with `{:ok, result}`, where result is
@@ -177,7 +179,7 @@ defmodule UUID.Info do
       ** (ArgumentError) Invalid argument; Not valid variant bits
 
   """
-  @spec variant(binary) :: variant
+  @spec variant(binary) :: UUID.variant()
   def variant(<<1, 1, 1>>), do: :reserved_future
   def variant(<<1, 1, _v>>), do: :reserved_microsoft
   def variant(<<1, 0, _v>>), do: :rfc4122

@@ -30,7 +30,7 @@ defmodule UUID do
   @type type :: :default | :raw | :hex | :urn | :slug
 
   @typedoc "UUID version."
-  @type version :: 1 | 3 | 4 | 5
+  @type version :: 1 | 3 | 4 | 5 | 6
 
   @typedoc "Variant of UUID: see RFC for the details."
   @type variant ::
