@@ -1,5 +1,7 @@
 defmodule UUID.Info do
-  @moduledoc false
+  @moduledoc """
+  UUID info
+  """
 
   alias __MODULE__
 

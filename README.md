@@ -19,7 +19,7 @@ as a dependency in your `mix.exs` file:
 
 ```elixir
 defp deps do
-  [ {:uuid_utils, "~> 1.3"} ]
+  [ {:uuid_utils, "~> 1.4"} ]
 end
 ```
 
