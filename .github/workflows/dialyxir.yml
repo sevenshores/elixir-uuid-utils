@@ -1,6 +1,8 @@
 name: Static Analysis
 
-on: [pull_request]
+on:
+  pull_request:
+    types: [opened, reopened, synchronize]
 
 jobs:
   test:
@@ -10,7 +12,7 @@ jobs:
 
     strategy:
       matrix:
-        os: [ubuntu-20.04]
+        os: [ubuntu-18.04]
         elixir: [1.11.x]
         otp: [23.x]
 
@@ -29,15 +31,12 @@ jobs:
         id: plt-cache
         with:
           path: priv/plts
-          key: plt-${{matrix.os}}-${{matrix.elixir}}-${{matrix.otp}}-${{hashFiles('lib/**/*.ex')}}
-          restore-keys:
-            - plt-${{matrix.os}}-${{matrix.elixir}}-${{matrix.otp}}
+          key: plt-${{runner.os}}-${{matrix.elixir}}-${{matrix.otp}}-${{hashFiles('lib/**/*.ex')}}
+          restore-keys: |
+            plt-${{runner.os}}-${{matrix.elixir}}-${{matrix.otp}}-
 
       - name: Install dependencies
-        run: mix deps.get
-
-      - name: Compile
-        run: mix compile
+        run: mix do deps.get, deps.compile
 
       - name: Create Dialyzer PLTs
         if: steps.plt-cache.outputs.cache-hit != 'true'

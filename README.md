@@ -196,3 +196,4 @@ Some helper functions from [rjsamson/hexate](https://github.com/rjsamson/hexate)
 ### License
 
 Apache v2.0
+
