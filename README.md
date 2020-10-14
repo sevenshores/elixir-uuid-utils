@@ -5,6 +5,7 @@ Elixir UUID Utils
 [![hex.pm downloads](https://img.shields.io/hexpm/dt/uuid_utils.svg?style=flat)](https://hex.pm/packages/uuid_utils)
 [![Coverage Status](https://coveralls.io/repos/github/sevenshores/elixir-uuid-utils/badge.svg?branch=main)](https://coveralls.io/github/sevenshores/elixir-uuid-utils?branch=main)
 [![Test](https://github.com/sevenshores/elixir-uuid-utils/workflows/Test/badge.svg)](https://github.com/sevenshores/elixir-uuid-utils/actions?query=workflow%3ATest)
+[![Static Analysis](https://github.com/sevenshores/elixir-uuid-utils/workflows/Static%20Analysis/badge.svg)](https://github.com/sevenshores/elixir-uuid-utils/actions?query=workflow%3A%22Static+Analysis%22)
 
 UUID generator and utilities for [Elixir](http://elixir-lang.org/). See [RFC 4122](http://www.ietf.org/rfc/rfc4122.txt).
 
@@ -196,3 +197,4 @@ Some helper functions from [rjsamson/hexate](https://github.com/rjsamson/hexate)
 ### License
 
 Apache v2.0
+
