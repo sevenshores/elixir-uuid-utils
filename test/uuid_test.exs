@@ -43,14 +43,15 @@ defmodule UUIDTest do
   # UUID.info!/1 and UUID.info/1 functions, assuming the lines are:
   #   test name || expected output || input value
   for line <- File.stream!(Path.join([__DIR__, "info_tests.txt"]), [], :line) do
-    [name, expected, input] =
-      line |> String.split("||") |> Enum.map(&String.trim/1)
+    [name, expected, input] = line |> String.split("||") |> Enum.map(&String.trim/1)
+
     test "UUID.info!/1 #{name}" do
       {expected, []} = Code.eval_string(unquote(expected))
       result = UUID.info!(unquote(input))
       assert ^expected = result
       validate_uuid(UUID.binary_to_string!(result[:binary]), expected[:version])
     end
+
     test "UUID.info/1 #{name}" do
       {expected, []} = Code.eval_string(unquote(expected))
       {:ok, result} = UUID.info(unquote(input))
@@ -60,7 +61,8 @@ defmodule UUIDTest do
   end
 
   defp validate_uuid(uuid, version) when version in 1..6 do
-    assert Regex.match?(~r/^[0-9a-f]{8}-[0-9a-f]{4}-#{version}[0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i, uuid)
+    r = ~r/^[0-9a-f]{8}-[0-9a-f]{4}-#{version}[0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+    assert Regex.match?(r, uuid)
     uuid
   end
 end
