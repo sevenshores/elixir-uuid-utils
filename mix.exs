@@ -18,7 +18,11 @@ defmodule UUID.Mixfile do
       deps: deps(),
       xref: [exclude: [:cover, EEx]],
       test_coverage: [tool: ExCoveralls],
-      preferred_cli_env: preferred_cli_env()
+      preferred_cli_env: preferred_cli_env(),
+      dialyzer: [
+        plt_add_apps: [:ex_unit],
+        plt_file: {:no_warn, "priv/plts/dialyzer.plt"}
+      ]
     ]
   end
 

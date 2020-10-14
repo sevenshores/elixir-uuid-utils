@@ -8,6 +8,10 @@ erl_crash.dump
 ## Benchmark results files
 bench/snapshots/
 
+## PLTS
+/priv/plts/*.plt
+/priv/plts/*.plt.hash
+
 ## generic files
 *~
 *.DS_Store

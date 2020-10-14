@@ -5,7 +5,7 @@ defmodule UUID.Info do
 
   defstruct [:uuid, :binary, :type, :version, :variant]
 
-  @type type :: :default | :binary | :hex | :urn | :raw | :slug
+  @type type :: :default | :hex | :urn | :raw | :slug
   @type version :: 1 | 3 | 4 | 5 | 6
   @type variant :: :rfc4122 | :reserved_ncs | :reserved_microsoft | :reserved_future
   @type t :: %Info{uuid: binary, type: type, version: version, variant: variant}
