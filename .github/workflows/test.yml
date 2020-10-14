@@ -37,3 +37,9 @@ jobs:
 
       - name: Run tests
         run: mix test
+
+      - name: Run coverage
+        run: mix coveralls.github
+        env:
+          MIX_ENV: test
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

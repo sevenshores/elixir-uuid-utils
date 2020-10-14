@@ -3,6 +3,7 @@ Elixir UUID Utils
 
 [![hex.pm version](https://img.shields.io/hexpm/v/uuid_utils.svg?style=flat)](https://hex.pm/packages/uuid_utils)
 [![hex.pm downloads](https://img.shields.io/hexpm/dt/uuid_utils.svg?style=flat)](https://hex.pm/packages/uuid_utils)
+[![Coverage Status](https://coveralls.io/repos/github/sevenshores/elixir-uuid-utils/badge.svg?branch=main)](https://coveralls.io/github/sevenshores/elixir-uuid-utils?branch=main)
 [![Test](https://github.com/sevenshores/elixir-uuid-utils/workflows/Test/badge.svg)](https://github.com/sevenshores/elixir-uuid-utils/actions?query=workflow%3ATest)
 
 UUID generator and utilities for [Elixir](http://elixir-lang.org/). See [RFC 4122](http://www.ietf.org/rfc/rfc4122.txt).

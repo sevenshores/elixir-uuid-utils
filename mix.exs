@@ -14,7 +14,10 @@ defmodule UUID.Mixfile do
       source_url: "https://github.com/sevenshores/elixir-uuid-utils",
       description: description(),
       package: package(),
-      deps: deps()
+      deps: deps(),
+      xref: [exclude: [:cover, EEx]],
+      test_coverage: [tool: ExCoveralls],
+      preferred_cli_env: preferred_cli_env()
     ]
   end
 
@@ -25,12 +28,21 @@ defmodule UUID.Mixfile do
     ]
   end
 
+  defp preferred_cli_env do
+    [
+      coveralls: :test,
+      "coveralls.detail": :test,
+      "coveralls.post": :test,
+      "coveralls.html": :test
+    ]
+  end
+
   # List of dependencies.
   defp deps do
     [
-      {:ex_doc, "~> 0.19", only: :dev, runtime: false},
-      # {:earmark, "~> 1.2", only: :dev},
-      {:benchfella, "~> 0.3", only: :dev, runtime: false}
+      {:benchfella, "~> 0.3", only: :dev, runtime: false},
+      {:excoveralls, "~> 0.10", only: :test},
+      {:ex_doc, "~> 0.19", only: :dev, runtime: false}
     ]
   end
 
