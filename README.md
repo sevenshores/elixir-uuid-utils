@@ -68,9 +68,13 @@ iex> UUID.uuid5("fcfe5f21-8a08-4c9a-9f97-29d2fd6a27b9", "my.domain.com")
 
 ### UUID v6
 
+<<<<<<< HEAD
+Generated using a combination of time since the west adopted the gregorian calendar and either the node id MAC address or random bytes.
+=======
 Generated using a combination of time since the west adopted the gregorian
 calendar and either the node id MAC address or random bytes.
 
+>>>>>>> main
 Valid node types are `:mac_address` or `:random_bytes` and defaults to `:mac_address`.
 
 ```elixir
