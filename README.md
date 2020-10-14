@@ -122,39 +122,40 @@ iex> UUID.uuid1(:urn)
 
 ### Utility functions
 
-Use `UUID.info/1` and `UUID.info!/1` to get a [keyword list](http://elixir-lang.org/getting_started/7.html#toc_1)
+Use `UUID.info/1` and `UUID.info!/1` to get a [struct](https://elixir-lang.org/getting-started/structs.html)
 containing information about the given UUID. `UUID.info/1` returns a tuple of `{:ok, info}`
 for valid cases or `{:error, reason}` if the argument is not a UUID string.
-`UUID.info!/1` directly returns the info keyword list when successful or raises
+
+`UUID.info!/1` directly returns the info struct when successful or raises
 an `ArgumentError` for error cases.
 
 ```elixir
 iex> UUID.info!("870df8e8-3107-4487-8316-81e089b8c2cf")
-[
+%UUID.Info{
   uuid: "870df8e8-3107-4487-8316-81e089b8c2cf",
   binary: <<135, 13, 248, 232, 49, 7, 68, 135, 131, 22, 129, 224, 137, 184, 194, 207>>,
   type: :default,
   version: 4,
   variant: :rfc4122
-]
+}
 
 iex> UUID.info!("8ea1513df8a14dea9bea6b8f4b5b6e73")
-[
+%UUID.Info{
   uuid: "8ea1513df8a14dea9bea6b8f4b5b6e73",
   binary: <<142, 161, 81, 61, 248, 161, 77, 234, 155, 234, 107, 143, 75, 91, 110, 115>>,
   type: :hex,
   version: 4,
   variant: :rfc4122
-]
+}
 
 iex> UUID.info!("urn:uuid:ef1b1a28-ee34-11e3-8813-14109ff1a304")
-[
+%UUID.Info{
   uuid: "urn:uuid:ef1b1a28-ee34-11e3-8813-14109ff1a304",
   binary: <<239, 27, 26, 40, 238, 52, 17, 227, 136, 19, 20, 16, 159, 241, 163, 4>>,
   type: :urn,
   version: 1,
   variant: :rfc4122
-]
+}
 ```
 
 Use `UUID.string_to_binary!/1` to convert a valid UUID string to its raw binary equivalent.

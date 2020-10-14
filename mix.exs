@@ -10,6 +10,7 @@ defmodule UUID.Mixfile do
       name: "UUID",
       version: @version,
       elixir: "~> 1.7",
+      elixirc_paths: elixirc_paths(Mix.env()),
       docs: docs(),
       source_url: "https://github.com/sevenshores/elixir-uuid-utils",
       description: description(),
@@ -27,6 +28,10 @@ defmodule UUID.Mixfile do
       extra_applications: [:crypto]
     ]
   end
+
+  # Specifies which paths to compile per environment.
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib"]
 
   defp preferred_cli_env do
     [
