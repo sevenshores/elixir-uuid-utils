@@ -1,4 +1,4 @@
-Elixir UUID
+Elixir UUID Utils
 ===========
 
 [![hex.pm version](https://img.shields.io/hexpm/v/elixir_uuid.svg?style=flat)](https://hex.pm/packages/elixir_uuid)
@@ -7,8 +7,8 @@ Elixir UUID
 
 UUID generator and utilities for [Elixir](http://elixir-lang.org/). See [RFC 4122](http://www.ietf.org/rfc/rfc4122.txt).
 
-**Note:** Renamed from [uuid](https://hex.pm/packages/uuid) to [elixir_uuid](https://hex.pm/packages/elixir_uuid)
-as a solution to package name conflicts. Use [elixir_uuid](https://hex.pm/packages/elixir_uuid) going forward.
+**Note:** Fork of [elixir_uuid](https://hex.pm/packages/elixir_uuid) since the maintainer has not been responsive for
+1-2 years at the time of writing this.
 
 ### Installation
 
@@ -22,7 +22,7 @@ as a dependency in your `mix.exs` file:
 
 ```elixir
 defp deps do
-  [ { :elixir_uuid, "~> 1.2" } ]
+  [ {:uuid_utils, "~> 1.2"} ]
 end
 ```
 

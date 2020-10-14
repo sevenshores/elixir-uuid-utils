@@ -1,3 +1,3 @@
 [
-  inputs: ["*.{ex,exs}", "priv/*/seeds.exs", "{config,lib,test}/**/*.{ex,exs}"]
+  inputs: ["*.{ex,exs}", "{bench,config,lib,test}/**/*.{ex,exs}"]
 ]
