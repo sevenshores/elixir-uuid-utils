@@ -1,5 +1,7 @@
 defmodule UUIDTest do
-  use ExUnit.Case
+  use ExUnit.Case, async: true
+
+  doctest UUID, except: [uuid1: 1, uuid1: 3, uuid4: 0, uuid4: 1, uuid4: 2, uuid6: 2, uuid6: 3]
 
   test "UUID.info/1 invalid argument type" do
     assert UUID.info(:not_a_uuid) == {:error, "Invalid argument; Expected: String"}
@@ -42,25 +44,28 @@ defmodule UUIDTest do
   # Expand the lines in info_tests.txt into individual tests for the
   # UUID.info!/1 and UUID.info/1 functions, assuming the lines are:
   #   test name || expected output || input value
-  for line <- File.stream!(Path.join([__DIR__, "info_tests.txt"]), [], :line) do
-    [name, expected, input] =
-      line |> String.split("||") |> Enum.map(&String.trim/1)
+  # info_file = Path.expand("../support/info_tests.txt", __DIR__)
+  for line <- File.stream!(Path.expand("./support/info_tests.txt", __DIR__), [], :line) do
+    [name, expected, input] = line |> String.split("||") |> Enum.map(&String.trim/1)
+
     test "UUID.info!/1 #{name}" do
       {expected, []} = Code.eval_string(unquote(expected))
       result = UUID.info!(unquote(input))
       assert ^expected = result
-      validate_uuid(UUID.binary_to_string!(result[:binary]), expected[:version])
+      validate_uuid(UUID.binary_to_string!(result.binary), expected.version)
     end
+
     test "UUID.info/1 #{name}" do
       {expected, []} = Code.eval_string(unquote(expected))
       {:ok, result} = UUID.info(unquote(input))
       assert ^expected = result
-      validate_uuid(UUID.binary_to_string!(result[:binary]), expected[:version])
+      validate_uuid(UUID.binary_to_string!(result.binary), expected.version)
     end
   end
 
   defp validate_uuid(uuid, version) when version in 1..6 do
-    assert Regex.match?(~r/^[0-9a-f]{8}-[0-9a-f]{4}-#{version}[0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i, uuid)
+    r = ~r/^[0-9a-f]{8}-[0-9a-f]{4}-#{version}[0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+    assert Regex.match?(r, uuid)
     uuid
   end
 end
