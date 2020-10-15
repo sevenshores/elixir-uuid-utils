@@ -1,4 +1,4 @@
-Elixir UUID Utils
+UUID Utils
 ===========
 
 [![hex.pm version](https://img.shields.io/hexpm/v/uuid_utils.svg?style=flat)](https://hex.pm/packages/uuid_utils)
@@ -19,7 +19,7 @@ as a dependency in your `mix.exs` file:
 
 ```elixir
 defp deps do
-  [ {:uuid_utils, "~> 1.4"} ]
+  [ {:uuid_utils, "~> 1.5"} ]
 end
 ```
 

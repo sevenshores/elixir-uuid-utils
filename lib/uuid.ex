@@ -218,7 +218,7 @@ defmodule UUID do
   end
 
   @doc """
-  Generate a new UUID v3. This version uses an MD5 hash of fixed value (chosen
+  Generate a new UUID v3. This version uses an MD5 hash of fixed value chosen
   based on a namespace atom - see Appendix C of
   [RFC 4122](http://www.ietf.org/rfc/rfc4122.txt) and a name value. Can also be
   given an existing UUID String instead of a namespace atom.
@@ -332,7 +332,7 @@ defmodule UUID do
   end
 
   @doc """
-  Generate a new UUID v5. This version uses an SHA1 hash of fixed value (chosen
+  Generate a new UUID v5. This version uses an SHA1 hash of fixed value chosen
   based on a namespace atom - see Appendix C of
   [RFC 4122](http://www.ietf.org/rfc/rfc4122.txt) and a name value. Can also be
   given an existing UUID String instead of a namespace atom.
@@ -512,9 +512,56 @@ defmodule UUID do
     |> uuid_to_string(format)
   end
 
-  #
+  @doc """
+  Validate a RFC4122 UUID.
+  """
+  @spec valid?(binary, 0..6 | String.t()) :: boolean
+  def valid?(uuid, version \\ "[0-6]")
+
+  def valid?(uuid, version) when version in 0..6 or version == "[0-6]" do
+    case info(uuid) do
+      {:ok, info} ->
+        ~r/^[0-9a-f]{8}-[0-9a-f]{4}-#{version}[0-9a-f]{3}-[089ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+        |> Regex.match?(uuid_to_string_default(info.binary))
+
+      {:error, _} ->
+        false
+    end
+  end
+
+  def valid?(_, _), do: false
+
+  @doc """
+  Identify the UUID variant according to section 4.1.1 of RFC 4122.
+
+  ## Examples
+
+      iex> UUID.variant(<<1, 1, 1>>)
+      :reserved_future
+
+      iex> UUID.variant(<<1, 1, 0>>)
+      :reserved_microsoft
+
+      iex> UUID.variant(<<1, 0, 0>>)
+      :rfc4122
+
+      iex> UUID.variant(<<0, 1, 1>>)
+      :reserved_ncs
+
+      iex> UUID.variant(<<1>>)
+      ** (ArgumentError) Invalid argument; Not valid variant bits
+
+  """
+  @spec variant(binary) :: variant()
+  def variant(<<1, 1, 1>>), do: :reserved_future
+  def variant(<<1, 1, _v>>), do: :reserved_microsoft
+  def variant(<<1, 0, _v>>), do: :rfc4122
+  def variant(<<0, _v::2-binary>>), do: :reserved_ncs
+  def variant(_), do: raise(ArgumentError, message: "Invalid argument; Not valid variant bits")
+
+  # ----------------------------------------------------------------------------
   # Internal utility functions.
-  #
+  # ----------------------------------------------------------------------------
 
   # Convert UUID bytes to String.
   defp uuid_to_string(<<_::128>> = u, :default) do

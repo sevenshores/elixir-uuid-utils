@@ -150,39 +150,11 @@ defmodule UUID.Info do
       binary: <<uuid::128>>,
       type: type,
       version: version,
-      variant: variant(<<v0, v1, v2>>)
+      variant: UUID.variant(<<v0, v1, v2>>)
     }
   end
 
   def new!(_) do
     raise ArgumentError, message: "Invalid argument; Expected: String"
   end
-
-  @doc """
-  Identify the UUID variant according to section 4.1.1 of RFC 4122.
-
-  ## Examples
-
-      iex> UUID.Info.variant(<<1, 1, 1>>)
-      :reserved_future
-
-      iex> UUID.Info.variant(<<1, 1, 0>>)
-      :reserved_microsoft
-
-      iex> UUID.Info.variant(<<1, 0, 0>>)
-      :rfc4122
-
-      iex> UUID.Info.variant(<<0, 1, 1>>)
-      :reserved_ncs
-
-      iex> UUID.Info.variant(<<1>>)
-      ** (ArgumentError) Invalid argument; Not valid variant bits
-
-  """
-  @spec variant(binary) :: UUID.variant()
-  def variant(<<1, 1, 1>>), do: :reserved_future
-  def variant(<<1, 1, _v>>), do: :reserved_microsoft
-  def variant(<<1, 0, _v>>), do: :rfc4122
-  def variant(<<0, _v::2-binary>>), do: :reserved_ncs
-  def variant(_), do: raise(ArgumentError, message: "Invalid argument; Not valid variant bits")
 end

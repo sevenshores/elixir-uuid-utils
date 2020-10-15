@@ -2,7 +2,7 @@ defmodule UUID.Mixfile do
   use Mix.Project
 
   @app :uuid_utils
-  @version "1.4.0"
+  @version "1.5.0"
 
   def project do
     [
