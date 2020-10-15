@@ -11,12 +11,13 @@ defmodule UUID.Mixfile do
       version: @version,
       elixir: "~> 1.7",
       elixirc_paths: elixirc_paths(Mix.env()),
+      aliases: aliases(),
       docs: docs(),
       source_url: "https://github.com/sevenshores/elixir-uuid-utils",
       description: description(),
       package: package(),
       deps: deps(),
-      xref: [exclude: [:cover, EEx]],
+      xref: [exclude: [ExCoveralls]],
       test_coverage: [tool: ExCoveralls],
       preferred_cli_env: preferred_cli_env(),
       dialyzer: [
@@ -49,10 +50,17 @@ defmodule UUID.Mixfile do
   # List of dependencies.
   defp deps do
     [
-      {:benchfella, "~> 0.3", only: :dev, runtime: false},
-      {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
-      {:excoveralls, "~> 0.10", only: [:dev, :test], runtime: false},
+      {:benchee, "~> 1.0", only: :dev},
+      {:excoveralls, "~> 0.13", only: :test},
+      {:dialyxir, "~> 1.0", only: :dev, runtime: false},
       {:ex_doc, "~> 0.19", only: :dev, runtime: false}
+    ]
+  end
+
+  defp aliases do
+    [
+      "bench.uuid": ["run bench/uuid_bench.exs"],
+      "bench.utils": ["run bench/utils_bench.exs"]
     ]
   end
 
