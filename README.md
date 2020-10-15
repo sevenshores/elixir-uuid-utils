@@ -190,11 +190,10 @@ iex> UUID.binary_to_string!(<<239, 27, 26, 40, 238, 52, 17, 227, 136, 19, 20, 16
 
 ### Attribution
 
-Some code ported from [avtobiff/erlang-uuid](https://github.com/avtobiff/erlang-uuid).
-
-Some helper functions from [rjsamson/hexate](https://github.com/rjsamson/hexate).
+ * Originally forked from [Andrei Mihu](https://github.com/zyro)'s [zyro/elixir-uuid](https://github.com/zyro/elixir-uuid) [October, 2020].
+ * Some code ported from [avtobiff/erlang-uuid](https://github.com/avtobiff/erlang-uuid).
+ * Some helper functions from [rjsamson/hexate](https://github.com/rjsamson/hexate).
 
 ### License
 
-Apache v2.0
-
+[License](https://github.com/sevenshores/elixir-uuid-utils/blob/main/LICENSE) - Apache v2.0
