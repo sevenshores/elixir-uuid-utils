@@ -621,7 +621,10 @@ defmodule UUID do
   defp e(14), do: ?e
   defp e(15), do: ?f
 
-  # Extract the type (:default etc) and pure byte value from a UUID String.
+  @doc """
+  Extract the type (:default etc) and pure byte value from a UUID String.
+  """
+  @spec uuid_string_to_hex_pair(t) :: {type, raw}
   def uuid_string_to_hex_pair(<<_::128>> = uuid) do
     {:raw, uuid}
   end
