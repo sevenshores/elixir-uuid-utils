@@ -122,7 +122,7 @@ defmodule UUIDTest do
   # UUID.info!/1 and UUID.info/1 functions, assuming the lines are:
   #   test name || expected output || input value
   # info_file = Path.expand("../support/info_tests.txt", __DIR__)
-  for line <- File.stream!(Path.expand("./support/info_tests.txt", __DIR__), [], :line) do
+  for line <- File.stream!(Path.expand("./support/fixtures/info_tests.txt", __DIR__), [], :line) do
     [name, expected, input] = line |> String.split("||") |> Enum.map(&String.trim/1)
 
     test "UUID.info!/1 #{name}" do
