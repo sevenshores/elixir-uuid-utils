@@ -5,14 +5,14 @@ UUID Utils
 [![hex.pm downloads](https://img.shields.io/hexpm/dt/uuid_utils.svg?style=flat)](https://hex.pm/packages/uuid_utils)
 [![Coverage Status](https://coveralls.io/repos/github/sevenshores/elixir-uuid-utils/badge.svg?branch=main)](https://coveralls.io/github/sevenshores/elixir-uuid-utils?branch=main)
 [![Test](https://github.com/sevenshores/elixir-uuid-utils/workflows/Test/badge.svg)](https://github.com/sevenshores/elixir-uuid-utils/actions?query=workflow%3ATest)
-[![Static Analysis](https://github.com/sevenshores/elixir-uuid-utils/workflows/Static%20Analysis/badge.svg)](https://github.com/sevenshores/elixir-uuid-utils/actions?query=workflow%3A%22Static+Analysis%22)
+[![Static Analysis](https://github.com/sevenshores/elixir-uuid-utils/workflows/Static%20Analysis/badge.svg?branch=main)](https://github.com/sevenshores/elixir-uuid-utils/actions?query=workflow%3A%22Static+Analysis%22)
 
 UUID generator and utilities for [Elixir](http://elixir-lang.org/). See [RFC 4122](http://www.ietf.org/rfc/rfc4122.txt).
 
 **Note:** This is a fork of [elixir_uuid](https://hex.pm/packages/elixir_uuid), which is great, but the maintainer has not been responsive for
 1-2 years at the time of writing this.
 
-### Installation
+## Installation
 
 Releases are published through [hex.pm](https://hex.pm/packages/uuid_utils). Add
 as a dependency in your `mix.exs` file:
@@ -22,6 +22,8 @@ defp deps do
   [ {:uuid_utils, "~> 1.5"} ]
 end
 ```
+
+## Usage
 
 ### UUID v1
 
@@ -188,12 +190,51 @@ iex> UUID.binary_to_string!(<<239, 27, 26, 40, 238, 52, 17, 227, 136, 19, 20, 16
 "urn:uuid:ef1b1a28-ee34-11e3-8813-14109ff1a304"
 ```
 
-### Attribution
+## Ecto Types
+
+### Parameterized Type (Ecto >= 3.5)
+
+```elixir
+defmodule Foo.Bar do
+  use Ecto.Schema
+
+  @primary_key {:id, UUID.Ecto.Type, autogenerate: true, type: :uuid6, node_type: :random_bytes}
+
+  schema "bars" do
+    field :baz_id, UUID.Ecto.Type, type: :uuid1
+  end
+end
+```
+
+### _Using_ `UUID.Ecto.Type`
+
+```elixir
+defmodule Foo.Types.UUID6 do
+  use UUID.Ecto.Type,
+    type: :uuid6,
+    node_type: :random_bytes
+end
+
+defmodule Foo.Bar do
+  use Ecto.Schema
+
+  alias Foo.Types.UUID6
+
+  @primary_key {:id, UUID6, autogenerate: true}
+
+  schema "bars" do
+    field :baz_id, UUID6
+  end
+end
+```
+
+
+## Attribution
 
  * Originally forked from [Andrei Mihu](https://github.com/zyro)'s [zyro/elixir-uuid](https://github.com/zyro/elixir-uuid) [October, 2020].
  * Some code ported from [avtobiff/erlang-uuid](https://github.com/avtobiff/erlang-uuid).
  * Some helper functions from [rjsamson/hexate](https://github.com/rjsamson/hexate).
 
-### License
+## License
 
 [License](https://github.com/sevenshores/elixir-uuid-utils/blob/main/LICENSE) - Apache v2.0
