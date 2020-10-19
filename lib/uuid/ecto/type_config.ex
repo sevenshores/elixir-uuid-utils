@@ -4,6 +4,7 @@ if Code.ensure_loaded?(Ecto) do
 
     ## Valid types
 
+    @valid_types [:uuid1, :uuid3, :uuid4, :uuid5, :uuid6]
     @valid_v3_namespaces [:dns, :url, :oid, :x500, nil]
     @valid_v5_namespaces @valid_v3_namespaces
     @valid_v6_node_types [:mac_address, :random_bytes]
@@ -55,7 +56,7 @@ if Code.ensure_loaded?(Ecto) do
     Validate the provided opts for different types.
     """
     @spec get_and_validate_args(uuid_type, keyword) :: uuid_type_args
-    def get_and_validate_args(:uuid1, []), do: []
+    def get_and_validate_args(:uuid1, _), do: []
 
     def get_and_validate_args(:uuid3, opts) do
       namespace = Keyword.fetch!(opts, :namespace)
@@ -77,7 +78,7 @@ if Code.ensure_loaded?(Ecto) do
       [namespace, name]
     end
 
-    def get_and_validate_args(:uuid4, []), do: []
+    def get_and_validate_args(:uuid4, _), do: []
 
     def get_and_validate_args(:uuid5, opts) do
       namespace = Keyword.fetch!(opts, :namespace)
@@ -113,10 +114,9 @@ if Code.ensure_loaded?(Ecto) do
     end
 
     # Catch-all validator.
-    def get_and_validate_args(type, opts) do
-      raise ArgumentError,
-        message:
-          "Invalid type, or unrecognized option; type: #{inspect(type)}; options: #{inspect(opts)}"
+    def get_and_validate_args(type, _opts) do
+      type_str = Enum.join(@valid_types, "|")
+      raise ArgumentError, message: "Invalid type; type: #{inspect(type)}, expected types: #{type_str}"
     end
 
     # Backfill for Elixir < 1.10.x

@@ -55,12 +55,6 @@ defmodule UUID.Ecto.TypeConfigTest do
     {:uuid6, [:random_bytes]} = TypeConfig.init_opts(type: :uuid6)
   end
 
-  test "init_opts/1 errors on unrecognized UUID v1 options" do
-    assert_raise ArgumentError, ~r/Invalid type, or unrecognized option/, fn ->
-      TypeConfig.init_opts(type: :uuid1, namespace: :dns)
-    end
-  end
-
   test "init_opts/1 errors on invalid UUID v3 namespace" do
     assert_raise ArgumentError, "Invalid namespace; expected dns|url|oid|x500| or a UUID", fn ->
       TypeConfig.init_opts(type: :uuid3, namespace: :foo, name: "bar")
@@ -80,12 +74,6 @@ defmodule UUID.Ecto.TypeConfigTest do
 
     assert_raise KeyError, "key :name not found in: [namespace: :dns]", fn ->
       TypeConfig.init_opts(type: :uuid3, namespace: :dns)
-    end
-  end
-
-  test "init_opts/1 errors on unrecognized UUID v4 options" do
-    assert_raise ArgumentError, ~r/Invalid type, or unrecognized option/, fn ->
-      TypeConfig.init_opts(type: :uuid4, namespace: :dns)
     end
   end
 
