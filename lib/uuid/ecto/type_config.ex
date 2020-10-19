@@ -120,10 +120,12 @@ if Code.ensure_loaded?(Ecto) do
     end
 
     # Backfill for Elixir < 1.10.x
-    defp keyword_pop!(keywords, key) when is_list(keywords) and is_atom(key) do
-      if function_exported?(Keyword, :pop!, 2) do
+   if function_exported?(Keyword, :pop!, 2) do
+      defp keyword_pop!(keywords, key) when is_list(keywords) and is_atom(key) do
         Keyword.pop!(keywords, key)
-      else
+      end
+    else
+      defp keyword_pop!(keywords, key) when is_list(keywords) and is_atom(key) do
         case Keyword.fetch(keywords, key) do
           {:ok, value} -> {value, Keyword.delete(keywords, key)}
           :error -> raise KeyError, key: key, term: keywords
