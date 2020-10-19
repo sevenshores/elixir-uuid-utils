@@ -10,6 +10,17 @@ defmodule TestUUID3 do
     name: "mydomain.com"
 end
 
+defmodule TestApp1UUID3 do
+  use UUID.Ecto.Type,
+    otp_app: :uuid_utils,
+    type: :uuid3,
+    name: "mydomain.com"
+end
+
+defmodule TestApp2UUID3 do
+  use UUID.Ecto.Type, otp_app: :uuid_utils
+end
+
 defmodule TestUUID4 do
   use UUID.Ecto.Type,
     type: :uuid4

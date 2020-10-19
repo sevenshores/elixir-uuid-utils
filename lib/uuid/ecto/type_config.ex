@@ -4,7 +4,6 @@ if Code.ensure_loaded?(Ecto) do
 
     ## Valid types
 
-    @valid_uuid_types [:uuid1, :uuid3, :uuid4, :uuid5, :uuid6]
     @valid_v3_namespaces [:dns, :url, :oid, :x500, nil]
     @valid_v5_namespaces @valid_v3_namespaces
     @valid_v6_node_types [:mac_address, :random_bytes]
@@ -24,7 +23,7 @@ if Code.ensure_loaded?(Ecto) do
     Get the init opts for the Parameterized UUID type.
     """
     @spec init_opts(keyword) :: params
-    def init_opts(opts) do
+    def init_opts(opts) when is_list(opts) do
       {uuid_type, opts} = Keyword.pop(opts, :type, @default_uuid_type)
       args = get_and_validate_args(uuid_type, opts)
       {uuid_type, args}
@@ -34,7 +33,7 @@ if Code.ensure_loaded?(Ecto) do
     Get and validate the config for the user-defined UUID.Ecto.Type.
     """
     @spec compile_type_config(module, keyword) :: params
-    def compile_type_config(module, opts) do
+    def compile_type_config(module, opts) when is_list(opts) do
       {otp_app, opts} = Keyword.pop(opts, :otp_app)
 
       {uuid_type, opts} =
@@ -72,7 +71,7 @@ if Code.ensure_loaded?(Ecto) do
       end
 
       if not is_binary(name) do
-        raise ArgumentError, message: "Invalid name; expected String"
+        raise ArgumentError, message: "Invalid name: #{inspect(name)}; expected String"
       end
 
       [namespace, name]
@@ -94,7 +93,7 @@ if Code.ensure_loaded?(Ecto) do
       end
 
       if not is_binary(name) do
-        raise ArgumentError, message: "Invalid name; expected String"
+        raise ArgumentError, message: "Invalid name: #{inspect(name)}; expected String"
       end
 
       [namespace, name]
@@ -105,7 +104,9 @@ if Code.ensure_loaded?(Ecto) do
 
       if node_type not in @valid_v6_node_types do
         node_types_str = Enum.join(@valid_v6_node_types, "|")
-        raise ArgumentError, message: "Invalid node type; expected one of #{node_types_str}"
+
+        raise ArgumentError,
+          message: "Invalid node type: #{inspect(node_type)}; expected one of #{node_types_str}"
       end
 
       [node_type]
@@ -113,13 +114,9 @@ if Code.ensure_loaded?(Ecto) do
 
     # Catch-all validator.
     def get_and_validate_args(type, opts) do
-      types_str = Enum.join(@valid_uuid_types, "|")
-
       raise ArgumentError,
         message:
-          "Invalid type #{inspect(type)}, expected one of :#{types_str}; Or unrecognized options: #{
-            inspect(opts)
-          }"
+          "Invalid type, or unrecognized option; type: #{inspect(type)}; options: #{inspect(opts)}"
     end
 
     # Backfill for Elixir < 1.10.x
