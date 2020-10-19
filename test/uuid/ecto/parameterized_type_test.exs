@@ -37,8 +37,9 @@ defmodule UUID.Ecto.ParameterizedTypeTest do
 
   test "type/1" do
     for {_uuid, _info, opts} <- @items do
-      params = EctoUUID.init(opts)
-      assert EctoUUID.type(params) == :binary_id
+      # TODO: Swap out the rest of the tests with the Ecto public interface for the types,
+      # Instead of EctoUUID, use Ecto.Type, like:
+      assert Ecto.Type.type({:parameterized, UUID.Ecto.Type, opts}) == :binary_id
     end
   end
 

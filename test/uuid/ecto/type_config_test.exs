@@ -109,23 +109,40 @@ defmodule UUID.Ecto.TypeConfigTest do
 
   ## compile_type_config/2
 
-  test "compile_type_config/2" do
-    for {type, _uuid, _info, opts} <- @type_items do
-      assert {type, args} = TypeConfig.compile_type_config(type, opts)
-      assert type == opts[:type]
-      assert is_list(args)
-    end
+  defp with_application_env(_) do
+    Application.put_env(:uuid_utils, FooBar, namespace: :url)
+
+    on_exit(fn ->
+      Application.delete_env(:uuid_utils, FooBar)
+    end)
+
+    :ok
   end
 
-  test "compile_type_config/2 with otp_app" do
-    opts1 = [otp_app: :uuid_utils, type: :uuid3, name: "foobar.com"]
-    assert {type1, args1} = TypeConfig.compile_type_config(TestApp1UUID3, opts1)
-    assert type1 == opts1[:type]
-    assert args1 == [:dns, "foobar.com"]
+  describe "Compile test config" do
+    setup [:with_application_env]
 
-    opts2 = [otp_app: :uuid_utils, type: :uuid3, namespace: :url]
-    assert {type2, args2} = TypeConfig.compile_type_config(TestApp2UUID3, opts2)
-    assert type2 == opts2[:type]
-    assert args2 == [:url, "elixir.com"]
+    test "compile_type_config/2" do
+      for {type, _uuid, _info, opts} <- @type_items do
+        assert {type, args} = TypeConfig.compile_type_config(type, opts)
+        assert type == opts[:type]
+        assert is_list(args)
+      end
+    end
+
+    test "compile_type_config/2 with otp_app" do
+      opts = [otp_app: :uuid_utils, type: :uuid3, name: "foobar.com"]
+      assert {type, args} = TypeConfig.compile_type_config(FooBar, opts)
+      assert type == opts[:type]
+      assert args == [:url, "foobar.com"]
+    end
+
+    test "compile_type_config/2 with otp_app raises error with missing env" do
+      opts = [otp_app: :uuid_utils, type: :uuid3, name: "foobar.com"]
+
+      assert_raise KeyError, ~r/key :namespace not found in: \[name: "foobar.com"\]/, fn ->
+        TypeConfig.compile_type_config(NoApplicationEnv, opts)
+      end
+    end
   end
 end

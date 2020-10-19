@@ -31,11 +31,15 @@ if Code.ensure_loaded?(Ecto) do
       @impl Ecto.ParameterizedType
       @spec cast(UUID.t(), params) :: {:ok, UUID.str()} | :error
       def cast(value, _params) do
-        try do
-          {_type, raw} = UUID.uuid_string_to_hex_pair(value)
+        result =
+          try do
+            UUID.uuid_string_to_hex_pair(value)
+          rescue
+            _ -> :error
+          end
+
+        with {_type, raw} <- result do
           {:ok, UUID.binary_to_string!(raw)}
-        rescue
-          _ -> :error
         end
       end
 
@@ -138,11 +142,15 @@ if Code.ensure_loaded?(Ecto) do
         @impl Ecto.Type
         @spec cast(UUID.t()) :: {:ok, UUID.str()} | :error
         def cast(value) do
-          try do
-            {_type, raw} = UUID.uuid_string_to_hex_pair(value)
+          result =
+            try do
+              UUID.uuid_string_to_hex_pair(value)
+            rescue
+              _ -> :error
+            end
+
+          with {_type, raw} <- result do
             {:ok, UUID.binary_to_string!(raw)}
-          rescue
-            _ -> :error
           end
         end
 

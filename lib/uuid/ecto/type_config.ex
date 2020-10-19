@@ -116,11 +116,13 @@ if Code.ensure_loaded?(Ecto) do
     # Catch-all validator.
     def get_and_validate_args(type, _opts) do
       type_str = Enum.join(@valid_types, "|")
-      raise ArgumentError, message: "Invalid type; type: #{inspect(type)}, expected types: #{type_str}"
+
+      raise ArgumentError,
+        message: "Invalid type; type: #{inspect(type)}, expected types: #{type_str}"
     end
 
     # Backfill for Elixir < 1.10.x
-   if function_exported?(Keyword, :pop!, 2) do
+    if function_exported?(Keyword, :pop!, 2) do
       defp keyword_pop!(keywords, key) when is_list(keywords) and is_atom(key) do
         Keyword.pop!(keywords, key)
       end

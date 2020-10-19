@@ -50,7 +50,7 @@ defmodule UUID.Mixfile do
   # List of dependencies.
   defp deps do
     [
-      {:ecto, "~> 3.0", optional: true}
+      {:ecto, "~> 3.0", optional: true},
       {:benchee, "~> 1.0", only: :dev},
       {:dialyxir, "~> 1.0", only: [:dev], runtime: false},
       {:excoveralls, "~> 0.13", only: :test},
