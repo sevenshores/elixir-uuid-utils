@@ -71,10 +71,19 @@ if Code.ensure_loaded?(Ecto) do
       Converts a binary UUID into a string.
       """
       @impl Ecto.ParameterizedType
-      @spec load(UUID.raw(), function, params) :: {:ok, UUID.str()} | :error
-      def load(value, _loader, _params) do
+      @spec load(UUID.t(), function, params) :: {:ok, UUID.str()} | :error
+      def load(<<_::128>> = value, _loader, _params) do
         try do
           {:ok, UUID.binary_to_string!(value)}
+        rescue
+          _ -> :error
+        end
+      end
+
+      def load(value, _loader, _params) do
+        try do
+          info = UUID.info!(value)
+          {:ok, UUID.binary_to_string!(info.binary)}
         rescue
           _ -> :error
         end
@@ -182,10 +191,19 @@ if Code.ensure_loaded?(Ecto) do
         Converts a binary UUID into a string.
         """
         @impl Ecto.Type
-        @spec load(UUID.raw()) :: {:ok, UUID.str()} | :error
-        def load(value) do
+        @spec load(UUID.t()) :: {:ok, UUID.str()} | :error
+        def load(<<_::128>> = value) do
           try do
             {:ok, UUID.binary_to_string!(value)}
+          rescue
+            _ -> :error
+          end
+        end
+
+        def load(value) do
+          try do
+            info = UUID.info!(value)
+            {:ok, UUID.binary_to_string!(info.binary)}
           rescue
             _ -> :error
           end
