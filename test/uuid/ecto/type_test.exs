@@ -5,6 +5,8 @@ defmodule UUID.Ecto.TypeTest do
   # Setup
   # ----------------------------------------------------------------------------
 
+  alias UUID.{TestUUID1, TestUUID3, TestUUID4, TestUUID5, TestUUID6}
+
   test_types = [TestUUID1, TestUUID3, TestUUID4, TestUUID5, TestUUID6]
   uuids = Enum.map(test_types, & &1.generate())
   infos = Enum.map(uuids, &UUID.info!/1)
@@ -12,6 +14,12 @@ defmodule UUID.Ecto.TypeTest do
   @items Enum.zip([test_types, uuids, infos])
 
   @uuid_null "00000000-0000-0000-0000-000000000000"
+
+  defp start_repo(_) do
+    start_supervised!(UUID.TestRepo)
+
+    :ok
+  end
 
   # ----------------------------------------------------------------------------
   # Tests
@@ -43,9 +51,9 @@ defmodule UUID.Ecto.TypeTest do
   test "cast!/1" do
     for {type, uuid, _info} <- @items do
       assert type.cast!(uuid) == uuid
-      [type_str] = Module.split(type)
+      ["UUID", type_str] = Module.split(type)
 
-      assert_raise Ecto.CastError, "cannot cast nil to #{type_str}", fn ->
+      assert_raise Ecto.CastError, "cannot cast nil to UUID.#{type_str}", fn ->
         assert type.cast!(nil) == :error
       end
     end
@@ -145,6 +153,29 @@ defmodule UUID.Ecto.TypeTest do
         TestUUID6 -> assert info.version == 6
         _ -> assert false
       end
+    end
+  end
+
+  describe "Repo" do
+    setup [:start_repo]
+
+    test "autogenerates proper UUID" do
+      {:ok, foo} =
+        UUID.TestSchema.changeset(%{})
+        |> UUID.TestRepo.insert()
+
+      assert info = UUID.info!(foo.id)
+      assert info.version == 6
+    end
+
+    test "casts UUID" do
+      {:ok, foo} =
+        %{foo_bar_id: UUID.uuid6()}
+        |> UUID.TestSchema.changeset()
+        |> UUID.TestRepo.insert()
+
+      assert info = UUID.info!(foo.foo_bar_id)
+      assert info.version == 6
     end
   end
 end

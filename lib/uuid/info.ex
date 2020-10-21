@@ -154,7 +154,7 @@ defmodule UUID.Info do
     }
   end
 
-  def new!(_) do
-    raise ArgumentError, message: "Invalid argument; Expected: String"
+  def new!(value) do
+    raise ArgumentError, message: "Invalid argument; Expected: String, got #{inspect(value)}"
   end
 end
