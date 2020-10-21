@@ -91,9 +91,13 @@ if Code.ensure_loaded?(Ecto) do
 
       @impl Ecto.ParameterizedType
       @spec equal?(UUID.t(), UUID.t(), params) :: boolean
-      def equal?(value1, value2, _params) do
+      def equal?(value, value, _params), do: true
+
+      def equal?(value1, value2, _params) when is_binary(value1) and is_binary(value2) do
         UUID.info!(value1).binary == UUID.info!(value2).binary
       end
+
+      def equal?(_, _, _), do: false
 
       # Callback invoked by autogenerate fields.
       @doc false
@@ -211,9 +215,13 @@ if Code.ensure_loaded?(Ecto) do
 
         @impl Ecto.Type
         @spec equal?(UUID.t(), UUID.t()) :: boolean
-        def equal?(value1, value2) do
+        def equal?(value, value), do: true
+
+        def equal?(value1, value2) when is_binary(value1) and is_binary(value2) do
           UUID.info!(value1).binary == UUID.info!(value2).binary
         end
+
+        def equal?(_, _), do: false
 
         # Callback invoked by autogenerate fields.
         @doc false

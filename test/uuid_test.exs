@@ -4,7 +4,8 @@ defmodule UUIDTest do
   doctest UUID, except: [uuid1: 1, uuid1: 3, uuid4: 0, uuid4: 1, uuid4: 2, uuid6: 2, uuid6: 3]
 
   test "info/1 invalid argument type" do
-    assert UUID.info(:not_a_uuid) == {:error, "Invalid argument; Expected: String"}
+    assert UUID.info(:not_a_uuid) ==
+             {:error, "Invalid argument; Expected: String, got :not_a_uuid"}
   end
 
   test "info/1 invalid UUID" do
@@ -14,7 +15,7 @@ defmodule UUIDTest do
   test "info!/1 invalid argument type" do
     assert_raise(
       ArgumentError,
-      "Invalid argument; Expected: String",
+      "Invalid argument; Expected: String, got :not_a_uuid",
       fn ->
         UUID.info!(:not_a_uuid)
       end

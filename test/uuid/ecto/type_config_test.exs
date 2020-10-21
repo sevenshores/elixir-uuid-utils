@@ -7,6 +7,8 @@ defmodule UUID.Ecto.TypeConfigTest do
   # Setup
   # ----------------------------------------------------------------------------
 
+  alias UUID.{TestUUID1, TestUUID3, TestUUID4, TestUUID5, TestUUID6}
+
   test_types = [TestUUID1, TestUUID3, TestUUID4, TestUUID5, TestUUID6]
   uuids = Enum.map(test_types, & &1.generate())
   infos = Enum.map(uuids, &UUID.info!/1)
