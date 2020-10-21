@@ -15,8 +15,8 @@ if Code.ensure_loaded?(Ecto) do
 
       @doc false
       @impl Ecto.ParameterizedType
-      @spec type(params) :: :binary_id
-      def type(_params), do: :binary_id
+      @spec type(params) :: :uuid
+      def type(_params), do: :uuid
 
       @doc false
       @impl Ecto.ParameterizedType
@@ -147,7 +147,7 @@ if Code.ensure_loaded?(Ecto) do
 
         @doc false
         @impl Ecto.Type
-        def type, do: :binary_id
+        def type, do: :uuid
 
         @doc """
         Casts to UUID.

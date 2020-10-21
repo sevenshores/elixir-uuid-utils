@@ -40,7 +40,7 @@ if Code.ensure_loaded?(Ecto.ParameterizedType) do
       for {_uuid, _info, opts} <- @items do
         # TODO: Swap out the rest of the tests with the Ecto public interface for the types,
         # Instead of EctoUUID, use Ecto.Type, like:
-        assert Ecto.Type.type({:parameterized, UUID.Ecto.Type, opts}) == :binary_id
+        assert Ecto.Type.type({:parameterized, UUID.Ecto.Type, opts}) == :uuid
       end
     end
 
@@ -120,6 +120,7 @@ if Code.ensure_loaded?(Ecto.ParameterizedType) do
         params = EctoUUID.init(opts)
         uuid_b = UUID.uuid6()
         refute EctoUUID.equal?(uuid, uuid_b, params)
+        refute EctoUUID.equal?(uuid, nil, params)
       end
     end
 
