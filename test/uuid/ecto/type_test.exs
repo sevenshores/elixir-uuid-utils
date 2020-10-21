@@ -27,7 +27,7 @@ defmodule UUID.Ecto.TypeTest do
 
   test "type/0" do
     for {type, _uuid, _info} <- @items do
-      assert type.type() == :binary_id
+      assert type.type() == :uuid
     end
   end
 
@@ -88,6 +88,7 @@ defmodule UUID.Ecto.TypeTest do
       # Type 3 and 5 are not random and will always be the same.
       uuid_b = if type in [TestUUID3, TestUUID5], do: UUID.uuid4(), else: type.generate()
       refute type.equal?(uuid, uuid_b)
+      refute type.equal?(uuid, nil)
     end
   end
 
