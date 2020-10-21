@@ -90,6 +90,7 @@ if Code.ensure_loaded?(Ecto.ParameterizedType) do
       for {uuid, info, opts} <- @items do
         params = EctoUUID.init(opts)
         assert EctoUUID.load(info.binary, loader, params) == {:ok, uuid}
+        assert EctoUUID.load(info.uuid, loader, params) == {:ok, uuid}
         assert EctoUUID.load("", loader, params) == :error
         assert EctoUUID.load(nil, loader, params) == :error
       end

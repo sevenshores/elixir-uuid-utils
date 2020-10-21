@@ -54,6 +54,7 @@ defmodule UUID.Ecto.TypeTest do
   test "load/1" do
     for {type, uuid, info} <- @items do
       assert type.load(info.binary) == {:ok, uuid}
+      assert type.load(info.uuid) == {:ok, uuid}
       assert type.load("") == :error
       assert type.load(uuid <> "1") == :error
     end
