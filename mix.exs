@@ -1,8 +1,8 @@
 defmodule UUID.Mixfile do
   use Mix.Project
 
-  @app :uuid_utils
-  @version "1.6.2"
+  @app :elixir_uuid
+  @version "1.6.3"
 
   def project do
     [
@@ -76,6 +76,7 @@ defmodule UUID.Mixfile do
   # Package info.
   defp package do
     [
+      name: :uuid_utils,
       files: ["lib", "mix.exs", "README.md", "LICENSE"],
       maintainers: ["Ryan Winchester"],
       licenses: ["Apache 2.0"],
