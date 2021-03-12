@@ -192,20 +192,6 @@ iex> UUID.binary_to_string!(<<239, 27, 26, 40, 238, 52, 17, 227, 136, 19, 20, 16
 
 ## Ecto Types
 
-### Parameterized Type (Ecto >= 3.5)
-
-```elixir
-defmodule Foo.Bar do
-  use Ecto.Schema
-
-  @primary_key {:id, UUID.Ecto.Type, autogenerate: true, type: :uuid6, node_type: :random_bytes}
-
-  schema "bars" do
-    field :baz_id, UUID.Ecto.Type, type: :uuid1
-  end
-end
-```
-
 ### _Using_ `UUID.Ecto.Type`
 
 ```elixir
