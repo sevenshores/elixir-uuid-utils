@@ -1,8 +1,8 @@
 defmodule UUID.Mixfile do
   use Mix.Project
 
-  @app :uuid_utils
-  @version "1.6.4"
+  @app :elixir_uuid
+  @version "1.6.5"
 
   def project do
     [

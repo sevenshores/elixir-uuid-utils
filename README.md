@@ -18,9 +18,13 @@ Releases are published through [hex.pm](https://hex.pm/packages/uuid_utils). Add
 as a dependency in your `mix.exs` file:
 
 ```elixir
-defp deps do
-  [ {:uuid_utils, "~> 1.6"} ]
-end
+{:elixir_uuid, "~> 1.6", hex: :uuid_utils}
+```
+
+If you already have dependencies that rely on `:elixir_uuid` you can do:
+
+```elixir
+{:elixir_uuid, "~> 1.6", override: true, hex: :uuid_utils}
 ```
 
 ## Usage
