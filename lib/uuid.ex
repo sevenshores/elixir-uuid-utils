@@ -4,8 +4,6 @@ defmodule UUID do
   See [RFC 4122](http://www.ietf.org/rfc/rfc4122.txt).
   """
 
-  use Bitwise, only_operators: true
-
   alias UUID.Info
 
   @typedoc "One of representations of UUID."
