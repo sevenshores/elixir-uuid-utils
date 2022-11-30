@@ -7,6 +7,8 @@ UUID Utils
 [![Test](https://github.com/sevenshores/elixir-uuid-utils/workflows/Test/badge.svg)](https://github.com/sevenshores/elixir-uuid-utils/actions?query=workflow%3ATest)
 [![Static Analysis](https://github.com/sevenshores/elixir-uuid-utils/workflows/Static%20Analysis/badge.svg?branch=main)](https://github.com/sevenshores/elixir-uuid-utils/actions?query=workflow%3A%22Static+Analysis%22)
 
+### ===> ARCHIVED: use https://github.com/bitwalker/uniq <===
+
 UUID generator and utilities for [Elixir](http://elixir-lang.org/). See [RFC 4122](http://www.ietf.org/rfc/rfc4122.txt).
 
 **Note:** This is a fork of [elixir_uuid](https://hex.pm/packages/elixir_uuid), which is great, but the maintainer has not been responsive for
